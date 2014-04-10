@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+<meta charset="utf-8">
+<title>Image Service</title>
+
+<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="css.css">
+<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+<script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/md5.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+<script src="bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="bootstrap/js/bootstrap.file-input.js"> </script>
+</head>
+<body>
+
+
+<center>
+
+
+<br>
+
+<br>
+
+<br>
+
+<h1>Upload an image with your email here:</h1>
+
+<form class="form-search" name="myform" action="/upload" method="post" enctype="multipart/form-data" onsubmit="return (validate()&&continueornot());">
+
+<div class="input-append">
+<br>
+<input class="imgType"type="file" name="file" id="file"  data-filename-placement="inside">
+<br>
+
+<br>
+<input  id="emailfield" class="input-xxlarge" type="text" placeholder="Your Email here" name="email">
+
+
+<input class="btn btn-lg btn-primary" type="submit" value="Submit" onsubmit="return continueornot();">
+
+
+</div>
+</form>
+
+<h1>Search our database that has thousands of profiles here:</h1>
+<div id="search" class = "form-group">
+
+  <input  id="term" type="text" placeholder="Enter an email here"/>
+  <button class="btn btn-lg btn-primary" id="hit" type="button" name="">Search</button>
+</div>
+
+</center>
+
+<script>
+
+$('input[type=file]').bootstrapFileInput();
+$('.file-inputs').bootstrapFileInput();
+
+
+
+/* 
+Validates it the input is an image and if there is a file being uploaded
+*/
+function validate(){
+
+  valid = true;
+	var validExtensions = ['png', 'gif', 'jpg','jpeg']
+	var fname = $('#file').val(); 
+	//console.log(fname)
+	var re = /(\.jpg|\.jpeg|\.bmp|\.gif|\.png)$/i;
+	if(!re.exec(fname))
+	{
+	alert("Oops!  It looks like you don't have an image uploaded.");
+	return false;
+	}
+    // valid = $.inArray(
+    //        ($('#file').val().match(/\.(.*?)]\s*$/) || [])[1],
+    //        validExtensions) != -1;
+    // console.log(valid)
+
+     // if($("#file").val() == ''){
+     //     alert("Please upload a file.")
+     //    valid = false;
+     // }
+     
+    return true
+}
+
+/* 
+Checks if the email is valid or not 
+*/
+function validateEmail(email) { 
+    var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
+ } 
+
+/* 
+Continues if the email is valid else it returns false so the form isn't submitted
+*/
+ function continueornot() {
+ 	
+    if(validateEmail(document.getElementById('emailfield').value)){
+    }else{ alert("Please enter an email that is valid"); return false;}
+ }
+
+// variable for the first run to append the img
+var q = 0
+
+/* 
+ On click this turns the input email into a hash using MD5 and does a get from the api the server creates
+ This then appends the img to the page with the profile name if it is the first time or else it replaces it
+
+*/
+$(document).ready(function() {
+  $('#hit').click(function() {
+   x =  $('#term').val();
+
+var hash = CryptoJS.MD5(x);
+
+var jqxhr = $.get( 'http://localhost:1337/api/' + hash, function() {
+
+  var img = $("<img />").attr('src', 'http://localhost:1337/api/' + hash).attr("id","newId");
+
+  if (q == 0) {
+  	q = q + 1
+ 
+  $("body").append("<h2 class= email_prof>" + "Here is the picture associated with: " + x + "</h2>")
+  $("body").append("<br>");
+  $("body").append(img);
+  $("body").append("<br>");
+  $("body").append("<br>");
+  console.log(q)
+  
+}
+  else {
+  	console.log("In the else")
+  $( ".email_prof" ).replaceWith( "<h2 class= email_prof>" + "Here is the picture associated with: " + x + "</h2>");
+  	//$(".email_prof").h2("Here is the picture associated with: " + x)
+  	$("#newId").attr('src','http://localhost:1337/api/' + hash) 
+
+  }
+})
+  .fail(function() {
+    alert( "The email that you have entered is one that is not currently registered.  Please try again with a new email or register this one to a picture." );
+  })
+
+});
+});
+
+</script>
+
+</body>
+</html>
