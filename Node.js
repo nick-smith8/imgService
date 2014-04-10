@@ -58,16 +58,8 @@ app.post("/upload", function (req, res) {
 
  // Reading the file that is submitted
   fs.readFile(req.files.file.path, function (err, data) {
-
   // Writing that file that was read and putting it in the taget path
     fs.writeFile(target_path, data, function (err) {
-
-      var img = fs.readFileSync(target_path);
-    
-    // console.log("counter value:")
-    // console.log(counter)
-    // console.log(key + ": " + value);
-   
   });
 
     //res.end(img,'binary')
