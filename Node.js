@@ -52,9 +52,9 @@ app.post("/upload", function (req, res) {
 // Creating the api by converting the email to MD5 hash and naming the image that in the api
   var target_path = __dirname +'/api/' + CryptoJS.MD5(emailname);; 
 
- // console.log("YA bish these are the paths")
+ //  console.log("The Paths are: ")
  //  console.log(target_path)
- //  console.log(tmp_path)
+ 
 
  // Reading the file that is submitted
   fs.readFile(req.files.file.path, function (err, data) {
@@ -62,7 +62,7 @@ app.post("/upload", function (req, res) {
     fs.writeFile(target_path, data, function (err) {
   });
 
-    //res.end(img,'binary')
+    
     });
 
 
