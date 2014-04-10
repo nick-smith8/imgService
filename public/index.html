@@ -119,7 +119,7 @@ $(document).ready(function() {
 
 var hash = CryptoJS.MD5(x);
 
-var jqxhr = $.get( 'http://localhost:1337/api/' + hash, function() {
+var jqxhr = $.get( '/api' + hash, function() {
 
   var img = $("<img />").attr('src', 'http://localhost:1337/api/' + hash).attr("id","newId");
 
