@@ -119,9 +119,9 @@ $(document).ready(function() {
 
 var hash = CryptoJS.MD5(x);
 
-var jqxhr = $.get( '/api' + hash, function() {
+var jqxhr = $.get( '/api/' + hash, function() {
 
-  var img = $("<img />").attr('src', 'http://localhost:1337/api/' + hash).attr("id","newId");
+  var img = $("<img />").attr('src', '/api/' + hash).attr("id","newId");
 
   if (q == 0) {
   	q = q + 1
@@ -138,7 +138,7 @@ var jqxhr = $.get( '/api' + hash, function() {
   	console.log("In the else")
   $( ".email_prof" ).replaceWith( "<h2 class= email_prof>" + "Here is the picture associated with: " + x + "</h2>");
   	//$(".email_prof").h2("Here is the picture associated with: " + x)
-  	$("#newId").attr('src','http://localhost:1337/api/' + hash) 
+  	$("#newId").attr('src','/api/' + hash) 
 
   }
 })
