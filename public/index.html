@@ -75,15 +75,6 @@ function validate(){
 	alert("Oops!  It looks like you don't have an image uploaded.");
 	return false;
 	}
-    // valid = $.inArray(
-    //        ($('#file').val().match(/\.(.*?)]\s*$/) || [])[1],
-    //        validExtensions) != -1;
-    // console.log(valid)
-
-     // if($("#file").val() == ''){
-     //     alert("Please upload a file.")
-     //    valid = false;
-     // }
      
     return true
 }
@@ -137,7 +128,7 @@ var jqxhr = $.get( '/api/' + hash, function() {
   else {
   	console.log("In the else")
   $( ".email_prof" ).replaceWith( "<h2 class= email_prof>" + "Here is the picture associated with: " + x + "</h2>");
-  	//$(".email_prof").h2("Here is the picture associated with: " + x)
+  	
   	$("#newId").attr('src','/api/' + hash) 
 
   }
