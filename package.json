@@ -13,11 +13,17 @@
     "jsdom": "~0.10.5",
     "mongodb": "~1.4.0",
     "path": "~0.4.9",
-    "xmlhttprequest": "~1.6.0"
+    "xmlhttprequest": "~1.6.0",
+    "jade": "~1.3.1"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "mocha": "~1.18.2",
+    "sinon": "~1.9.1",
+    "chai": "~1.9.1"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon Node.js"
   },
   "repository": {
     "type": "git",
